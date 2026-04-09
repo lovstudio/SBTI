@@ -1,3 +1,12 @@
+## 0.3.0
+
+- refactor: 项目从 SBTI 泛化为 XBTI 人格测试引擎
+- refactor: GitHub 仓库从 lovstudio/SBTI 更名为 lovstudio/XBTI
+- refactor: package.json name 从 sbti-test 改为 xbti
+- docs: README 重写为引擎视角，介绍泛化架构和 xbti-creator skill
+- chore: 创建 sbti 分支保留原版 SBTI 代码
+- chore: workflow release asset 命名从 sbti-test 改为 xbti
+
 ## 0.1.1
 
 - docs: 重写 README，添加项目介绍、特色、技术栈、算法简介、媒体报道

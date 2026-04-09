@@ -2,7 +2,7 @@ export default function IntroScreen({ onStart }) {
   return (
     <section className="screen active">
       <div className="hero card hero-minimal">
-        <h1>MBTI已经过时，SBTI来了。</h1>
+        <h1>MBTI已经过时，XBTI来了。</h1>
         <div className="hero-actions hero-actions-single">
           <button className="btn-primary" onClick={onStart}>开始测试</button>
         </div>

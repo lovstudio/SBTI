@@ -1,50 +1,74 @@
 <p align="center">
-  <img src="docs/images/cover.png" alt="SBTI Cover" width="100%">
+  <img src="docs/images/cover.png" alt="XBTI Cover" width="100%">
 </p>
 
-<h1 align="center">SBTI 人格测试</h1>
+<h1 align="center">XBTI</h1>
 
 <p align="center">
-  <strong>MBTI 已经过时，SBTI 来了。</strong><br>
-  <sub>一个火爆全网的抽象人格测试 — 31 道题，27 种离谱人格，5 分钟认识你自己</sub>
+  <strong>一个开源的人格测试引擎 — 5 分钟创建你自己的 BTI</strong><br>
+  <sub>基于 SBTI（恶搞版 MBTI）泛化而来，支持任意主题的人格测试生成</sub>
 </p>
 
 <p align="center">
-  <a href="https://sbti.lovstudio.ai">sbti.lovstudio.ai</a> &middot;
-  <a href="https://space.bilibili.com/417038183">原作者 B站@蛆肉儿串儿</a> &middot;
-  <a href="https://www.bilibili.com/video/BV1LpDHByET6/">原视频</a>
+  <a href="https://sbti.lovstudio.ai">SBTI 体验</a> &middot;
+  <a href="https://nbti.lovstudio.ai">NBTI 体验</a> &middot;
+  <a href="https://space.bilibili.com/417038183">原作者 B站@蛆肉儿串儿</a>
 </p>
 
 ---
 
-## 什么是 SBTI？
+## XBTI 是什么？
 
-SBTI 是一个「抽象版 MBTI」人格测试，由 B 站 UP 主 **蛆肉儿串儿** 原创，初衷是劝诫一位爱喝酒的朋友戒酒，结果无心插柳火爆全网。
+XBTI 是一个**人格测试引擎**，源自 B 站 UP 主 **蛆肉儿串儿** 原创的 SBTI（恶搞版 MBTI），经泛化后支持创建任意主题的人格测试。
 
-测试通过 31 道题，从 **15 个维度**（自我、情感、态度、行动驱力、社交）评估你的人格，最终匹配到 27 种人格类型之一：
+**核心引擎**：15 维度评估 + 曼哈顿距离匹配算法，只需替换数据文件即可生成全新的人格测试。
 
-> CTRL（拿捏者）、SHIT（愤世者）、JOKE-R（小丑）、ATM-er（送钱者）、SEXY（尤物）、DRUNK（酒鬼）、DEAD（死者）、IMSB（傻者）、FUCK（草者）、BOSS（领导者）、MUM（妈妈）、SOLO（孤儿）……
+### 已有的 BTI 变体
 
-每种类型都配有一段「扎心但不准打我」的人格解读。
+| 变体 | 主题 | 链接 |
+|------|------|------|
+| **SBTI** | 恶搞人格（27 种离谱人格） | [sbti.lovstudio.ai](https://sbti.lovstudio.ai) |
+| **NBTI** | 牛逼人格（20 种牛逼人格） | [nbti.lovstudio.ai](https://nbti.lovstudio.ai) |
 
-## 特色
+### 创建你自己的 BTI
 
-- **31 道题随机排序** — 每次测试顺序不同
-- **隐藏人格「酒鬼」** — 选中特定选项触发隐藏结局
-- **兜底人格「傻乐者」** — 匹配度低于 60% 时系统强制分配 HHHH
-- **15 维度评分** — 测完可查看每个维度的 L/M/H 等级和解读
-- **纯娱乐** — 别拿它当诊断、面试、相亲、分手、招魂、算命或人生判决书
+用 Claude Code 的 `xbti-creator` skill，输入主题名和偏好即可生成完整的 BTI 网站：
 
-> **姊妹项目**: [NBTI 牛逼人格测试](https://nbti.lovstudio.ai) — 同一套 15 维度引擎，全新 20 种牛逼人格，分享卡片 + QR 码传播
+```bash
+# 安装 skill
+npx skills add lovstudio/skills --skill lovstudio:xbti-creator
 
-## 技术栈
+# 在 Claude Code 中调用
+/lovstudio-xbti-creator
+```
 
-| 层 | 技术 |
-|---|------|
-| 框架 | React 19 + Vite 8 |
-| 运行时 | Bun |
-| 部署 | Vercel + Cloudflare DNS |
-| 分支 | `main` (React), `html-version` (原版单文件) |
+例如：LBTI（龙虾人格）、FBTI（创业者人格）、CBTI（猫猫人格）……
+
+## 引擎架构
+
+```
+src/
+├── data/
+│   ├── dimensions.js    # 15 维度定义（5 模型 × 3 子维度）
+│   ├── questions.js     # 30 道题（每维度 2 题，3 选项）
+│   └── types.js         # 人格类型（代号、模式、描述）
+├── logic/
+│   └── scoring.js       # 通用匹配算法（无需修改）
+└── components/
+    ├── IntroScreen.jsx   # 首页
+    ├── TestScreen.jsx    # 答题页
+    └── ResultScreen.jsx  # 结果页
+```
+
+**创建新 BTI 只需替换 `src/data/` 下的三个文件**，算法和组件通用。
+
+## 匹配算法
+
+1. 每道题对应一个维度，同维度得分求和
+2. 映射为三级：L（≤3）/ M（4）/ H（≥5）
+3. 构建 15 维用户向量，与所有人格模式做**曼哈顿距离**匹配
+4. 最近距离为匹配结果，相似度 = `(1 - distance/30) × 100%`
+5. 兜底：相似度 < 60% 时强制分配到 fallback 人格
 
 ## 本地开发
 
@@ -53,27 +77,33 @@ bun install
 bun dev
 ```
 
-构建：
+构建：`bun run build`
 
-```bash
-bun run build
-```
+## 技术栈
 
-## 算法简介
+| 层 | 技术 |
+|---|------|
+| 框架 | React 19 + Vite 8 |
+| 运行时 | Bun |
+| 部署 | Vercel + Cloudflare DNS |
 
-1. 每道题对应一个维度（S1-S3、E1-E3、A1-A3、Ac1-Ac3、So1-So3）
-2. 同维度得分求和，映射为 L（≤3）/ M（4）/ H（≥5）
-3. 将用户 15 维向量与 25 种标准人格的模式向量做**曼哈顿距离**匹配
-4. 距离最小者为匹配人格，相似度 = `(1 - distance/30) * 100%`
+## 分支说明
+
+| 分支 | 说明 |
+|------|------|
+| `main` | XBTI 引擎（泛化版） |
+| `sbti` | SBTI 原版（恶搞人格测试） |
+| `nbti` | NBTI 版本（牛逼人格测试） |
+| `html-version` | 最初的单文件 HTML 版 |
 
 ## 媒体报道
 
-- [MBTI 过时了！SBTI"傻逼体"凭什么刷屏？](https://mp.weixin.qq.com/s/nXFvJrs_qqtrckmegSu2Zg)
-- [MBTI 过时了，来 SBTI 测测吧...](https://mp.weixin.qq.com/s/XxYcBZzPLaQudK0cFFDgJQ)
+- [MBTI 过时了！XBTI"傻逼体"凭什么刷屏？](https://mp.weixin.qq.com/s/nXFvJrs_qqtrckmegSu2Zg)
+- [MBTI 过时了，来 XBTI 测测吧...](https://mp.weixin.qq.com/s/XxYcBZzPLaQudK0cFFDgJQ)
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=lovstudio/SBTI&type=Date)](https://star-history.com/#lovstudio/SBTI&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=lovstudio/XBTI&type=Date)](https://star-history.com/#lovstudio/XBTI&Date)
 
 ## License
 

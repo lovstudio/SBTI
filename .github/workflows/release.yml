@@ -33,7 +33,7 @@ jobs:
       - name: Package dist
         run: |
           TAG="${{ github.event.inputs.tag || github.ref_name }}"
-          zip -r "sbti-test-${TAG}.zip" dist
+          zip -r "xbti-${TAG}.zip" dist
 
       - name: Get tag
         id: tag
@@ -60,4 +60,4 @@ jobs:
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
           body: ${{ steps.notes.outputs.notes }}
-          files: sbti-test-${{ steps.tag.outputs.tag }}.zip
+          files: xbti-${{ steps.tag.outputs.tag }}.zip
