@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="https://sbti.lovstudio.ai">SBTI 体验</a> &middot;
-  <a href="https://nbti.lovstudio.ai">NBTI 体验</a> &middot;
   <a href="https://cbti.lovstudio.ai">CBTI 体验</a> &middot;
   <a href="https://space.bilibili.com/417038183">原作者 B站@蛆肉儿串儿</a>
 </p>
@@ -32,7 +31,6 @@ XBTI 是一个**人格测试引擎**，源自 B 站 UP 主 **蛆肉儿串儿** �
 | 变体 | 主题 | 链接 |
 |------|------|------|
 | **SBTI** | 恶搞人格（27 种离谱人格） | [sbti.lovstudio.ai](https://sbti.lovstudio.ai) |
-| **NBTI** | 牛逼人格（20 种牛逼人格） | [nbti.lovstudio.ai](https://nbti.lovstudio.ai) |
 | **CBTI** | 猫猫人格 | [cbti.lovstudio.ai](https://cbti.lovstudio.ai) |
 
 ### 创建你自己的 BTI
