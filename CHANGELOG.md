@@ -1,3 +1,9 @@
+## 0.5.2
+
+- feat: add NOMBTI case (数字游民城市人格测试) with 16 city personalities
+- refactor: replace jsdelivr CDN fetch with static imports for faster loading
+- fix: nombti image paths for gallery integration
+
 ## 0.5.1
 
 - docs: add technical deep-dive article on XBTI engine architecture

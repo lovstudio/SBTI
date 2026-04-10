@@ -82,22 +82,22 @@ export const TYPE_LIBRARY = {
 };
 
 export const TYPE_IMAGES = {
-  "CMS": "images/CMS.png",
-  "BALI": "images/BALI.png",
-  "LIS": "images/LIS.png",
-  "BKK": "images/BKK.png",
-  "TYO": "images/TYO.png",
-  "CDMX": "images/CDMX.png",
-  "BER": "images/BER.png",
-  "SGP": "images/SGP.png",
-  "MED": "images/MED.png",
-  "TBL": "images/TBL.png",
-  "BCN": "images/BCN.png",
-  "DXB": "images/DXB.png",
-  "HCM": "images/HCM.png",
-  "CPT": "images/CPT.png",
-  "BUD": "images/BUD.png",
-  "DNX": "images/DNX.png"
+  "CMS": "/image/nombti/CMS.png",
+  "BALI": "/image/nombti/BALI.png",
+  "LIS": "/image/nombti/LIS.png",
+  "BKK": "/image/nombti/BKK.png",
+  "TYO": "/image/nombti/TYO.png",
+  "CDMX": "/image/nombti/CDMX.png",
+  "BER": "/image/nombti/BER.png",
+  "SGP": "/image/nombti/SGP.png",
+  "MED": "/image/nombti/MED.png",
+  "TBL": "/image/nombti/TBL.png",
+  "BCN": "/image/nombti/BCN.png",
+  "DXB": "/image/nombti/DXB.png",
+  "HCM": "/image/nombti/HCM.png",
+  "CPT": "/image/nombti/CPT.png",
+  "BUD": "/image/nombti/BUD.png",
+  "DNX": "/image/nombti/DNX.png"
 };
 
 export const NORMAL_TYPES = [
